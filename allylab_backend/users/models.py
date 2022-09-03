@@ -16,4 +16,8 @@ class User(models.Model):
   pronoun = models.CharField(max_length=10, choices=PRONOUNS)
   photo = models.URLField()
   bio = models.CharField(max_length=1000)
-  # date_created = models.DateTimeField()
+  skills = models.ManyToManyField('Skill', related_name="users")
+
+class Skill(models.Model):
+  skill_name = models.CharField(max_length=30)
+  icon = models.URLField()
