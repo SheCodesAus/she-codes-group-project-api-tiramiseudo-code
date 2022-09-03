@@ -8,7 +8,10 @@ PRONOUNS = [
   ('T', 'They/them/theirs'),
   ('O', 'Other'),
 ]
-class User(models.Model):
+
+from django.contrib.auth.models import AbstractUser
+
+class CustomUser(AbstractUser):
   first_name = models.CharField(max_length=30)
   last_name = models.CharField(max_length=50)
   email = models.EmailField()
@@ -21,3 +24,7 @@ class User(models.Model):
 class Skill(models.Model):
   skill_name = models.CharField(max_length=30)
   icon = models.URLField()
+  # date_created = models.DateTimeField()
+
+  def __str__(self):
+    return self.email
