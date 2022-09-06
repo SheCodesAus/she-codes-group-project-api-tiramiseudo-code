@@ -1,3 +1,4 @@
+from re import X
 from django.shortcuts import render
 
 # Create your views here.
@@ -8,6 +9,7 @@ from .serializers import CustomUserSerializer, SkillSerializer
 from django.http import Http404
 from rest_framework import status, permissions
 from .permissions import IsOwnerOrReadOnly
+import json
 
 class CustomUserList(APIView):
 
@@ -64,3 +66,9 @@ class SkillList(APIView):
         serializer = CustomUserSerializer(instance=user,data=data,partial=True)
         if serializer.is_valid():
             serializer.save()
+
+class Hello(APIView):
+    def get(self, request):
+        data = '{"String":"Hello Allylab!" }'
+        y = json.loads(data)
+        return Response(y)
