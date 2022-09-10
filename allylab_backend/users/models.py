@@ -27,6 +27,7 @@ class CustomUser(AbstractUser):
   
   def __str__(self):
     return self.email
+    
 class Skill(models.Model):
   skill_name = models.CharField(max_length=30)
   icon = models.URLField()
