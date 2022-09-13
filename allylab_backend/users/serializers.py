@@ -44,3 +44,12 @@ class SkillSerializer(serializers.ModelSerializer):
 
   def create(self, validated_data):
     return Skill.objects.create(**validated_data)
+
+
+class CustomUserDetailSerializer(serializers.ModelSerializer):
+  skills = SkillSerializer(many=True, read_only=True)
+  
+  class Meta:
+    model = CustomUser
+    fields =( "id", "first_name", "last_name", "pronoun", "photo","bio", "skills")
+
