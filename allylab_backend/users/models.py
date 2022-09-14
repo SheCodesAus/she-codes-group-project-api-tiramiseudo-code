@@ -31,6 +31,3 @@ class CustomUser(AbstractUser):
 class Skill(models.Model):
   skill_name = models.CharField(max_length=30)
   icon = models.URLField()
-  # date_created = models.DateTimeField()
-
-

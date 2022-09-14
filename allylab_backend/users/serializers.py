@@ -7,7 +7,7 @@ class CustomUserSerializer(serializers.Serializer):
   last_name = serializers.CharField(max_length=50)
   email = serializers.EmailField()
   password = serializers.CharField(max_length=50, write_only=True)
-  pronoun = serializers.ChoiceField(choices=PRONOUNS)
+  pronoun = serializers.CharField(source='get_pronoun_display')
   photo = serializers.URLField(allow_blank=True)
   bio = serializers.CharField(max_length=1000)
   skills = serializers.PrimaryKeyRelatedField(queryset=Skill.objects, many=True)
@@ -34,6 +34,18 @@ class CustomUserSerializer(serializers.Serializer):
     user.skills.set(skills)
     user.save()
     return user
+
+
+
+    # def to_internal_value(self, data):
+    #     # To support inserts with the value
+    #     if data == '' and self.allow_blank:
+    #         return ''
+    #     for key, val in self._choices.items():
+    #         if val == data:
+    #             return key
+    #     self.fail('invalid_choice', input=data)
+
 
 class SkillSerializer(serializers.ModelSerializer):
   users = serializers.PrimaryKeyRelatedField(many=True, read_only=True)

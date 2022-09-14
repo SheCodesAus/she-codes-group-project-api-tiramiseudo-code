@@ -14,7 +14,7 @@ import json
 class CustomUserList(APIView):
 
     def get_permissions(self):
-        if self.request.method == 'GET':
+        if self.request.method == 'get':
             permission_classes = [permissions.IsAuthenticated]
         else:
             permission_classes = [permissions.AllowAny]
@@ -34,12 +34,12 @@ class CustomUserList(APIView):
 
 class CustomUserFilterList(APIView):
     permission_classes = [permissions.IsAuthenticated]
- 
+
     def get(self, request,pk):
-       skill = Skill.objects.get(pk=pk)
-       users = skill.users
-       serializer = CustomUserSerializer(users, many=True)
-       return Response(serializer.data)
+        skill = Skill.objects.get(pk=pk)
+        users = skill.users
+        serializer = CustomUserSerializer(users, many=True)
+        return Response(serializer.data)
 
 class CustomUserDetail(APIView):
 
