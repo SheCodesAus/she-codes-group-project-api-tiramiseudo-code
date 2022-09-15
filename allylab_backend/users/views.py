@@ -14,7 +14,7 @@ import json
 class CustomUserList(APIView):
 
     def get_permissions(self):
-        if self.request.method == 'get':
+        if self.request.method == 'GET':
             permission_classes = [permissions.IsAuthenticated]
         else:
             permission_classes = [permissions.AllowAny]
@@ -32,14 +32,6 @@ class CustomUserList(APIView):
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response("Oops! You've missed some fields when you tried to create your account.", status=status.HTTP_400_BAD_REQUEST)
 
-class CustomUserFilterList(APIView):
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get(self, request,pk):
-        skill = Skill.objects.get(pk=pk)
-        users = skill.users
-        serializer = CustomUserSerializer(users, many=True)
-        return Response(serializer.data)
 
 class CustomUserDetail(APIView):
 
