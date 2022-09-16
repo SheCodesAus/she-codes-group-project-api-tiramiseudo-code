@@ -60,8 +60,10 @@ class SkillSerializer(serializers.ModelSerializer):
 
 class CustomUserDetailSerializer(serializers.ModelSerializer):
   skills = SkillSerializer(many=True, read_only=True)
-  
+  pronoun = serializers.CharField(source='get_pronoun_display')
+
   class Meta:
     model = CustomUser
     fields =( "id", "first_name", "last_name", "pronoun", "photo","bio", "skills")
+    
 
