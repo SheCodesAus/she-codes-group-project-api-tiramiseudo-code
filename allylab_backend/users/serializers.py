@@ -8,6 +8,9 @@ class CustomUserSerializer(serializers.Serializer):
   email = serializers.EmailField()
   password = serializers.CharField(max_length=50, write_only=True)
   pronoun = serializers.ChoiceField(choices=PRONOUNS)
+
+  # pronoun = serializers.CharField()
+
   photo = serializers.URLField(allow_blank=True)
   bio = serializers.CharField(max_length=1000)
   skills = serializers.PrimaryKeyRelatedField(queryset=Skill.objects, many=True)
