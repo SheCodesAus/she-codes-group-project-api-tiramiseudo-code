@@ -41,8 +41,6 @@ class CustomUserFilterList(APIView):
         serializer = CustomUserSerializer(users, many=True)
         return Response(serializer.data)
 
-    
-
 class CustomUserDetail(APIView):
 
     def get(self, request, pk):
