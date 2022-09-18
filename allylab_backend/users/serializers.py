@@ -7,7 +7,7 @@ class CustomUserSerializer(serializers.Serializer):
   last_name = serializers.CharField(max_length=50)
   email = serializers.EmailField()
   password = serializers.CharField(max_length=50, write_only=True)
-  pronoun = serializers.CharField(source='get_pronoun_display')
+  pronoun = serializers.CharField()
   photo = serializers.URLField(allow_blank=True)
   bio = serializers.CharField(max_length=1000)
   skills = serializers.PrimaryKeyRelatedField(queryset=Skill.objects, many=True)
@@ -28,7 +28,9 @@ class CustomUserSerializer(serializers.Serializer):
     skills = validated_data.pop('skills')
     password = validated_data.pop('password')
     print(password)
+    print(validated_data)
     user = CustomUser.objects.create(**validated_data)
+    
     user.set_password(password)
     print(user.password)
     user.skills.set(skills)
@@ -60,7 +62,7 @@ class SkillSerializer(serializers.ModelSerializer):
 
 class CustomUserDetailSerializer(serializers.ModelSerializer):
   skills = SkillSerializer(many=True, read_only=True)
-  pronoun = serializers.CharField(source='get_pronoun_display')
+  pronoun = serializers.CharField()
 
   class Meta:
     model = CustomUser
