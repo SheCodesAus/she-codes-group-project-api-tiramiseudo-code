@@ -40,6 +40,21 @@ class CustomUserDetail(APIView):
         serializer = CustomUserDetailSerializer (user)
         return Response(serializer.data)
 
+    #Put request (update)
+    def put(self, request, pk):
+        user = CustomUser.objects.get(pk=pk)
+        data = request.data
+        serializer = CustomUserDetailSerializer(instance=user,data=data,partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,
+            status=status.HTTP_200_OK
+            )
+        return Response(
+            serializer.errors,
+            status=status.HTTP_400_BAD_REQUEST
+        )    
+
 class SkillList(APIView):
     def get(self, request):
         skills = Skill.objects.all()
